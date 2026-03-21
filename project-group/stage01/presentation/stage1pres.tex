@@ -1,0 +1,446 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Моделирование неравновесной агрегации},
+  pdfauthor={Казазаев Даниил Михайлович; Симонова Виктория Игоревна; Малюга Валерия Васильевна; Наталья какая-то; Лисенков Егор Романович},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Моделирование неравновесной агрегации}
+\subtitle{DLA и фрактальные структуры}
+\author{Казазаев Даниил Михайлович \and Симонова Виктория
+Игоревна \and Малюга Валерия Васильевна \and Наталья
+какая-то \and Лисенков Егор Романович}
+\date{2026-03-21}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\begin{frame}{Введение: Неравновесная агрегация}
+\phantomsection\label{ux432ux432ux435ux434ux435ux43dux438ux435-ux43dux435ux440ux430ux432ux43dux43eux432ux435ux441ux43dux430ux44f-ux430ux433ux440ux435ux433ux430ux446ux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Неравновесная агрегация} - ключевой процесс во многих
+  природных и технических явлениях:
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    образование сажи,
+  \item
+    рост дендритов при электроосаждении,
+  \item
+    «вязкие пальцы» при вытеснении нефти,
+  \item
+    электрический пробой.
+  \end{itemize}
+\item
+  Общая черта: \textbf{необратимое прилипание} частиц к растущему
+  кластеру (\(E_{\text{bond}} \gg k_B T\)).
+\item
+  Результат - \textbf{разветвлённые, часто фрактальные структуры}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Модель DLA (Witten-Sander)}
+\phantomsection\label{ux43cux43eux434ux435ux43bux44c-dla-witten-sander}
+\begin{block}{Основные принципы}
+\phantomsection\label{ux43eux441ux43dux43eux432ux43dux44bux435-ux43fux440ux438ux43dux446ux438ux43fux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Пространство - \textbf{квадратная решётка}.
+\item
+  В центре - \textbf{затравочная частица} (seed).
+\item
+  Новые частицы \textbf{диффундируют} (случайные блуждания) извне.
+\item
+  При контакте с кластером - \textbf{необратимое прилипание}.
+\end{itemize}
+\end{block}
+
+\begin{block}{Алгоритм}
+\phantomsection\label{ux430ux43bux433ux43eux440ux438ux442ux43c}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \textbf{Запуск частицы} с круга радиусом
+  \(R_{\text{spawn}} = R_{\max} + \Delta R\)\\
+  \(\alpha = 2\pi \cdot \text{random}\)
+\item
+  \textbf{Случайное блуждание} (4 направления, равные вероятности).
+\item
+  \textbf{Прилипание} - если соседний узел занят.
+\item
+  Если частица уходит за \(R_{\text{kill}} \approx 3R_{\max}\) -
+  уничтожить.
+\item
+  Повторять до нужного числа частиц.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Морфология роста: Эффект экранирования}
+\phantomsection\label{ux43cux43eux440ux444ux43eux43bux43eux433ux438ux44f-ux440ux43eux441ux442ux430-ux44dux444ux444ux435ux43aux442-ux44dux43aux440ux430ux43dux438ux440ux43eux432ux430ux43dux438ux44f}
+\textbf{Почему структура ветвится, а не образует сплошной диск?} 1.
+\textbf{Геометрическое преимущество:} Выступающие части кластера
+(«ветви») имеют более высокую вероятность столкновения с блуждающей
+частицей. 2. \textbf{Экранирование впадин:} Внутренние области (фьорды)
+защищены внешними ветвями; вероятность проникновения частицы вглубь
+экспоненциально мала. 3. \textbf{Математическая связь:} Процесс
+описывается \textbf{уравнением Лапласа} \(\nabla^2 P = 0\), где
+вероятность прилипания пропорциональна градиенту поля на границе.
+\end{frame}
+
+\begin{frame}{Фрактальная размерность}
+\phantomsection\label{ux444ux440ux430ux43aux442ux430ux43bux44cux43dux430ux44f-ux440ux430ux437ux43cux435ux440ux43dux43eux441ux442ux44c}
+\begin{block}{Что такое фрактал?}
+\phantomsection\label{ux447ux442ux43e-ux442ux430ux43aux43eux435-ux444ux440ux430ux43aux442ux430ux43b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Объект с \textbf{дробной размерностью}.
+\item
+  Плотность убывает с ростом размера: \[
+  \rho(R) \sim R^{D-d}
+  \]
+\item
+  Для DLA на плоскости \(D \approx 1.71 \pm 0.02\).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Фрактальная размерность}
+\phantomsection\label{ux444ux440ux430ux43aux442ux430ux43bux44cux43dux430ux44f-ux440ux430ux437ux43cux435ux440ux43dux43eux441ux442ux44c-1}
+\begin{block}{Методы определения \(D\)}
+\phantomsection\label{ux43cux435ux442ux43eux434ux44b-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux44f-d}
+\begin{longtable}[]{@{}ll@{}}
+\caption{Основные методы расчёта фрактальной
+размерности}\label{tbl-methods}\tabularnewline
+\toprule\noalign{}
+Метод & Принцип \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Метод & Принцип \\
+\midrule\noalign{}
+\endhead
+\textbf{Сфер} & \(m(R) \sim R^D\) → наклон \(\ln m\) от \(\ln R\) \\
+\textbf{Box counting} & \(N(L) \sim L^{-D}\) \\
+\textbf{Радиус гирации} & \(N \sim R_g^D\) \\
+\bottomrule\noalign{}
+\end{longtable}
+\end{block}
+\end{frame}
+
+\begin{frame}{Методы анализа и верификации}
+\phantomsection\label{ux43cux435ux442ux43eux434ux44b-ux430ux43dux430ux43bux438ux437ux430-ux438-ux432ux435ux440ux438ux444ux438ux43aux430ux446ux438ux438}
+\begin{itemize}[<+->]
+\item
+  \textbf{Метод радиуса гирации (\(R_g\)):}\\
+  \[
+  R_g = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (\vec{r}_i - \vec{r}_{cm})^2}
+  \]\\
+  Построение \(\ln N\) от \(\ln R_g\) даёт наклон \(D\).
+\item
+  \textbf{Метод Box-counting:}\\
+  Покрытие кластера сеткой ячеек \(\epsilon\), подсчёт непустых ячеек
+  \(N(\epsilon)\).\\
+  \[
+  D = \lim_{\epsilon \to 0} \frac{\ln N(\epsilon)}{\ln(1/\epsilon)}
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Примеры математических фракталов}
+\phantomsection\label{ux43fux440ux438ux43cux435ux440ux44b-ux43cux430ux442ux435ux43cux430ux442ux438ux447ux435ux441ux43aux438ux445-ux444ux440ux430ux43aux442ux430ux43bux43eux432}
+\begin{longtable}[]{@{}ll@{}}
+\caption{Классические фракталы и их
+размерности}\label{tbl-classical-fractals}\tabularnewline
+\toprule\noalign{}
+Фрактал & Размерность \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Фрактал & Размерность \\
+\midrule\noalign{}
+\endhead
+Множество Кантора & \(\ln 2 / \ln 3 \approx 0.631\) \\
+Кривая Коха & \(\ln 4 / \ln 3 \approx 1.262\) \\
+Треугольник Серпинского & \(\ln 3 / \ln 2 \approx 1.585\) \\
+Траектория броуновской частицы & \(2\) (без самопересечений) \\
+\bottomrule\noalign{}
+\end{longtable}
+\end{frame}
+
+\begin{frame}{Модификации модели}
+\phantomsection\label{ux43cux43eux434ux438ux444ux438ux43aux430ux446ux438ux438-ux43cux43eux434ux435ux43bux438}
+\begin{block}{Химически ограниченная агрегация (RLA)}
+\phantomsection\label{ux445ux438ux43cux438ux447ux435ux441ux43aux438-ux43eux433ux440ux430ux43dux438ux447ux435ux43dux43dux430ux44f-ux430ux433ux440ux435ux433ux430ux446ux438ux44f-rla}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Вероятность прилипания \(p < 1\).
+\item
+  Может зависеть от числа соседей: \[
+  p_1 = 0.01,\; p_2 = 0.1,\; p_3 = 0.9
+  \]
+\item
+  Размерность увеличивается (\(D \to 2\)).
+\end{itemize}
+\end{block}
+
+\begin{block}{Баллистическая агрегация}
+\phantomsection\label{ux431ux430ux43bux43bux438ux441ux442ux438ux447ux435ux441ux43aux430ux44f-ux430ux433ux440ux435ux433ux430ux446ux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Частицы движутся \textbf{прямолинейно}.
+\item
+  Кластер более плотный, но граница - фрактал (\(D \approx 1.95\)).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Модификации модели}
+\phantomsection\label{ux43cux43eux434ux438ux444ux438ux43aux430ux446ux438ux438-ux43cux43eux434ux435ux43bux438-1}
+\begin{block}{Кластер-кластерная агрегация (DLCA)}
+\phantomsection\label{ux43aux43bux430ux441ux442ux435ux440-ux43aux43bux430ux441ux442ux435ux440ux43dux430ux44f-ux430ux433ux440ux435ux433ux430ux446ux438ux44f-dlca}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Одновременный рост множества кластеров.
+\item
+  Кластеры могут слипаться.
+\item
+  Размерность \textbf{меньше}, чем в DLA.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Связь с электрическим пробоем}
+\phantomsection\label{ux441ux432ux44fux437ux44c-ux441-ux44dux43bux435ux43aux442ux440ux438ux447ux435ux441ux43aux438ux43c-ux43fux440ux43eux431ux43eux435ux43c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Модель DLA - частный случай \textbf{модели диэлектрического пробоя}
+  (DBM).
+\item
+  Вероятность ветвления пропорциональна локальной напряжённости поля.
+\item
+  При показателе \(\eta = 1\) - эквивалент DLA.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Заключение}
+\phantomsection\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  DLA - простая, но мощная модель \textbf{неравновесного роста}.
+\item
+  Позволяет исследовать \textbf{фрактальные свойства} кластеров.
+\item
+  Модификации расширяют применимость к реальным системам.
+\item
+  Вычислительная реализация даёт наглядное представление о
+  \textbf{скейлинговых закономерностях}.
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
